@@ -1,7 +1,7 @@
 
 import { UserMsg } from './UserMsg.jsx'
 import { LoginSignup } from './LoginSignup.jsx'
-import { userService } from '../services/user.service.js'
+import { userService } from '../services/user.service-local.js'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 import { logout } from '../store/actions/user.actions.js'
 
@@ -11,7 +11,7 @@ import { NavLink } from 'react-router-dom'
 
 export function AppHeader() {
     const dispatch = useDispatch()
-    const user = useSelector(storeState => storeState.userModule.loggedInUser)
+    const user = useSelector(storeState => storeState.userModule.loggedinUser)
     // console.log('user:', user)
 
     function onLogout() {
