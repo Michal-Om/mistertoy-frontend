@@ -70,7 +70,38 @@ function getDefaultFilter() {
 }
 
 //  test data:
-// storageService.post(STORAGE_KEY, {name: 'Talking Doll', price: 123, labels: ['Doll','Battery Powered','Baby'], createdAt: Date.now(), inStock: true})
+export const toys = _createToys()
+if (!localStorage.getItem(STORAGE_KEY)) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(toys))
+}
 
+function _createToys() {
+    return [
+        {
+            _id: 't101',
+            name: 'Talking Doll',
+            price: 123,
+            labels: ['Doll', 'Battery Powered', 'Baby'],
+            createdAt: Date.now(),
+            inStock: true
+        },
+        {
+            _id: 't102',
+            name: 'Teddy Bear',
+            price: 200,
+            labels: ['Stuffed'],
+            createdAt: Date.now(),
+            inStock: true
+        },
+        {
+            _id: 't103',
+            name: 'LEGO Set',
+            price: 450,
+            labels: ['Building', 'Plastic'],
+            createdAt: Date.now(),
+            inStock: false
+        }
+    ]
+}
 
 
