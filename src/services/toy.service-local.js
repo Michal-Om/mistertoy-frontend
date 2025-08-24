@@ -18,13 +18,22 @@ export const toyService = {
 function query(filterBy = {}) {
     return storageService.query(STORAGE_KEY)
         .then(toys => {
-            if (!filterBy.txt) filterBy.txt = ''
-            if (!filterBy.maxPrice) filterBy.maxPrice = Infinity
-            const regExp = new RegExp(filterBy.txt, 'i')
-            return toys.filter(toy =>
-                regExp.test(toy.name) &&
-                toy.price <= filterBy.maxPrice
-            )
+            if (filterBy.txt) {
+                const regExp = new RegExp(filterBy.txt, 'i')
+                toys = toys.filter(toy => regExp.test(toy.name))
+            }
+
+            if (filterBy.maxPrice) {
+                toys = toys.filter(toy => toy.price <= filterBy.maxPrice)
+            }
+
+
+            if (filterBy.stock && filterBy.stock !== 'all') {
+                toys = toys.filter(toy =>
+                    filterBy.stock === 'in-stock' ? toy.inStock : !toy.inStock
+                )
+            }
+            return toys
         })
 }
 
