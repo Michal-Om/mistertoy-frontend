@@ -10,8 +10,8 @@ export const toyService = {
     getById,
     save,
     remove,
-    getEmptytoy,
-    getRandomtoy,
+    getEmptyToy,
+    getRandomToy,
     getDefaultFilter
 }
 
@@ -57,7 +57,7 @@ function save(toy) {
     }
 }
 
-function getEmptytoy() {
+function getEmptyToy() {
     return {
         name: '',
         price: '',
@@ -67,10 +67,11 @@ function getEmptytoy() {
     }
 }
 
-function getRandomtoy() {
+function getRandomToy() {
     return {
         name: 'Toy-' + (Date.now() % 1000),
-        price: utilService.getRandomIntInclusive(1000, 9000),
+        price: utilService.getRandomIntInclusive(50, 1000),
+        inStock: true,
     }
 }
 

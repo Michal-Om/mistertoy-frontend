@@ -1,0 +1,15 @@
+.app-footer {
+    background-color: var(--clr1);
+    color: var(--clr1bg);
+    padding: 1em 0;
+    /* vertical spacing */
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.25em;
+}
+
+.footer-toy-counter {
+    font-size: 0.8em;
+    font-weight: 100;
+    letter-spacing: 0.5px;
+}
