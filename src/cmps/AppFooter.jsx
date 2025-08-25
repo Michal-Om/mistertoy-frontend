@@ -10,7 +10,7 @@ export function AppFooter() {
             <p className='footer-toy-counter'>
                 Currently {toysLength} toys in the shop
             </p>
-            <h3>Browse, play, and enjoy your toys collection!</h3>
+            <h3>Browse, play, and enjoy our toys collection!</h3>
 
             <UserMsg />
         </footer>
