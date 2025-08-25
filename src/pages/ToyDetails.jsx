@@ -34,7 +34,7 @@ export function ToyDetails() {
             </p>
             <div className="toy-labels">
                 {toy.labels.map(label => (
-                    <span key="label" className="toy-label">{label}</span>
+                    <span key={label} className="toy-label">{label}</span>
                 ))}
             </div>
             <p>Added on: {new Date(toy.createdAt).toLocaleDateString()}</p>

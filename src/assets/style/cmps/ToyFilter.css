@@ -2,3 +2,37 @@
     background-color: var(--clr2bg);
     padding: 1em;
 }
+
+.clear-btn {
+    border: 0.5px solid palevioletred;
+}
+
+.labels-select {
+    min-height: 100px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    font-family: Roboto;
+    background-color: #fff;
+}
+
+.labels-select option {
+    padding: 2px 5px;
+}
+
+.toy-filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.toy-filter-form input,
+.toy-filter-form select {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    min-width: 150px;
+}

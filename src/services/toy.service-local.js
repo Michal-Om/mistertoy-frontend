@@ -5,6 +5,22 @@ import { userService } from './user.service-local.js'
 
 const STORAGE_KEY = 'toyDB'
 
+const labels = [
+    'On wheels',
+    'Box game',
+    'Art',
+    'Baby',
+    'Doll',
+    'Puzzle',
+    'Outdoor',
+    'Battery Powered',
+    'Stuffed',
+    'Plastic',
+    'Building',
+]
+
+_createToys()
+
 export const toyService = {
     query,
     getById,
@@ -12,28 +28,40 @@ export const toyService = {
     remove,
     getEmptyToy,
     getRandomToy,
-    getDefaultFilter
+    getDefaultFilter,
+    getToyLabels,
 }
 
 function query(filterBy = {}) {
     return storageService.query(STORAGE_KEY)
         .then(toys => {
+            let toysToShow = toys
+
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
-                toys = toys.filter(toy => regExp.test(toy.name))
+                toysToShow = toysToShow.filter(toy => regExp.test(toy.name))
             }
 
             if (filterBy.maxPrice) {
-                toys = toys.filter(toy => toy.price <= filterBy.maxPrice)
+                toysToShow = toysToShow.filter(toy => toy.price <= filterBy.maxPrice)
             }
 
 
             if (filterBy.stock && filterBy.stock !== 'all') {
-                toys = toys.filter(toy =>
+                toysToShow = toysToShow.filter(toy =>
                     filterBy.stock === 'in-stock' ? toy.inStock : !toy.inStock
                 )
             }
-            return toys
+            console.log('filterBy.labels:', filterBy.labels);
+            console.log('toys:', toys);
+
+            if (filterBy.labels?.length) { //optional chining: check length only if filterBy.labels exists. if it's undefined or null falsy but no error
+                toysToShow = toysToShow.filter(toy =>
+                    filterBy.labels.every(label => toy.labels.includes(label))
+                )
+            }
+            console.log('toys:', toys);
+            return toysToShow
         })
 }
 
@@ -76,42 +104,50 @@ function getRandomToy() {
 }
 
 function getDefaultFilter() {
-    return { txt: '', maxPrice: '' }
+    return { txt: '', maxPrice: '', stock: 'all', labels: [] }
+}
+
+function getToyLabels() {
+    return Promise.resolve(labels)
 }
 
 //  test data:
-export const toys = _createToys()
-if (!localStorage.getItem(STORAGE_KEY)) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(toys))
-}
+// export const toys = _createToys()
+// if (!localStorage.getItem(STORAGE_KEY)) {
+//     localStorage.setItem(STORAGE_KEY, JSON.stringify(toys))
+// }
 
 function _createToys() {
-    return [
-        {
-            _id: 't101',
-            name: 'Talking Doll',
-            price: 123,
-            labels: ['Doll', 'Battery Powered', 'Baby'],
-            createdAt: Date.now(),
-            inStock: true
-        },
-        {
-            _id: 't102',
-            name: 'Teddy Bear',
-            price: 200,
-            labels: ['Stuffed'],
-            createdAt: Date.now(),
-            inStock: true
-        },
-        {
-            _id: 't103',
-            name: 'LEGO Set',
-            price: 450,
-            labels: ['Building', 'Plastic'],
-            createdAt: Date.now(),
-            inStock: false
-        }
-    ]
+    let toys = utilService.loadFromStorage(STORAGE_KEY)
+    if (!toys || !toys.length) {
+        toys = [
+            {
+                _id: 't101',
+                name: 'Talking Doll',
+                price: 123,
+                labels: ['Doll', 'Battery Powered', 'Baby'],
+                createdAt: Date.now(),
+                inStock: true
+            },
+            {
+                _id: 't102',
+                name: 'Teddy Bear',
+                price: 200,
+                labels: ['Stuffed'],
+                createdAt: Date.now(),
+                inStock: true
+            },
+            {
+                _id: 't103',
+                name: 'LEGO Set',
+                price: 450,
+                labels: ['Building', 'Plastic'],
+                createdAt: Date.now(),
+                inStock: false
+            }
+        ]
+    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(toys))
 }
 
 

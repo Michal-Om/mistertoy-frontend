@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 
@@ -12,15 +12,18 @@ import { loadToys, removeToy, saveToy, setFilterBy } from '../store/actions/toy.
 
 export function ToyIndex() {
 
-    const dispatch = useDispatch()
     const toys = useSelector(storeState => storeState.toyModule.toys)
     const filterBy = useSelector(storeState => storeState.toyModule.filterBy)
     const isLoading = useSelector(storeState => storeState.toyModule.isLoading)
 
+    const [toyLabels, setToyLabels] = useState()
 
     useEffect(() => {
         loadToys()
+            .then(() => toyService.getToyLabels())
+            .then(labels => setToyLabels(labels))
             .catch(err => {
+                console.log('err:', err)
                 showErrorMsg('Cannot load toys!')
             })
     }, [filterBy])
@@ -28,7 +31,6 @@ export function ToyIndex() {
     function onSetFilter(filterBy) {
         setFilterBy(filterBy)
     }
-
 
     function onRemoveToy(toyId) {
         removeToy(toyId)
@@ -39,7 +41,6 @@ export function ToyIndex() {
                 showErrorMsg('Cannot remove toy')
             })
     }
-
 
     function onAddToy() {
         const toyToSave = toyService.getRandomToy()
@@ -66,13 +67,16 @@ export function ToyIndex() {
             })
     }
 
-
     return (
         <div>
             <main>
                 <Link to="/toy/edit">Add Toy</Link>
                 <button className='add-btn' onClick={onAddToy}>Add Random Toy</button>
-                <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />
+                <ToyFilter
+                    filterBy={filterBy}
+                    onSetFilter={onSetFilter}
+                    toyLabels={toyLabels}
+                />
                 {!isLoading
                     ? <ToyList
                         toys={toys}
