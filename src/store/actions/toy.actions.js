@@ -1,13 +1,13 @@
 import { toyService } from "../../services/toy.service-local.js"
 import { showSuccessMsg } from "../../services/event-bus.service.js"
-import { ADD_TOY, REMOVE_TOY, SET_TOYS, SET_FILTER_BY, UPDATE_TOY, SET_IS_LOADING } from "../reducers/toy.reducer.js"
+import { ADD_TOY, REMOVE_TOY, SET_TOYS, SET_FILTER_BY, UPDATE_TOY, SET_IS_LOADING, SET_SORT_BY } from "../reducers/toy.reducer.js"
 import { store } from "../store.js"
 
 
 export function loadToys() {
-    const filterBy = store.getState().toyModule.filterBy
+    const { filterBy, sortBy } = store.getState().toyModule
     store.dispatch({ type: SET_IS_LOADING, isLoading: true })
-    return toyService.query(filterBy)
+    return toyService.query(filterBy, sortBy)
         .then(toys => {
             store.dispatch({ type: SET_TOYS, toys })
         })
@@ -50,4 +50,8 @@ export function saveToy(toy) {
 
 export function setFilterBy(filterBy) {
     store.dispatch({ type: SET_FILTER_BY, filterBy })
+}
+
+export function setSortBy(sortBy) {
+    store.dispatch({ type: SET_SORT_BY, sortBy })
 }

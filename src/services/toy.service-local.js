@@ -30,9 +30,10 @@ export const toyService = {
     getRandomToy,
     getDefaultFilter,
     getToyLabels,
+    getDefaultSort,
 }
 
-function query(filterBy = {}) {
+function query(filterBy = {}, sortBy = {}) {
     return storageService.query(STORAGE_KEY)
         .then(toys => {
             let toysToShow = toys
@@ -42,28 +43,37 @@ function query(filterBy = {}) {
                 toysToShow = toysToShow.filter(toy => regExp.test(toy.name))
             }
 
-            if (filterBy.maxPrice) {
-                toysToShow = toysToShow.filter(toy => toy.price <= filterBy.maxPrice)
-            }
-
-
             if (filterBy.stock && filterBy.stock !== 'all') {
                 toysToShow = toysToShow.filter(toy =>
                     filterBy.stock === 'in-stock' ? toy.inStock : !toy.inStock
                 )
             }
-            console.log('filterBy.labels:', filterBy.labels);
-            console.log('toys:', toys);
+            // console.log('filterBy.labels:', filterBy.labels);
+            // console.log('toys:', toys);
 
             if (filterBy.labels?.length) { //optional chining: check length only if filterBy.labels exists. if it's undefined or null falsy but no error
                 toysToShow = toysToShow.filter(toy =>
                     filterBy.labels.every(label => toy.labels.includes(label))
                 )
             }
-            console.log('toys:', toys);
+            // console.log('toys:', toys);
+
+            //Sort
+            if (sortBy.type) { //if user selected a sort field
+                const dir = +sortBy.descending //convert to number and multiply res to change direction
+                toysToShow.sort((a, b) => {
+                    if (sortBy.type === 'name') {
+                        return a.name.localeCompare(b.name) * dir //compares strings alphabetically.
+                    } else if (sortBy.type === 'price' || sortBy.type === 'createdAt') {
+                        return (a[sortBy.type] - b[sortBy.type]) * dir
+                    }
+                })
+
+            }
             return toysToShow
         })
 }
+
 
 function getById(toyId) {
     return storageService.get(STORAGE_KEY, toyId)
@@ -104,7 +114,11 @@ function getRandomToy() {
 }
 
 function getDefaultFilter() {
-    return { txt: '', maxPrice: '', stock: 'all', labels: [] }
+    return { txt: '', stock: 'all', labels: [] }
+}
+
+function getDefaultSort() {
+    return { type: '', descending: 1 }
 }
 
 function getToyLabels() {
@@ -144,6 +158,78 @@ function _createToys() {
                 labels: ['Building', 'Plastic'],
                 createdAt: Date.now(),
                 inStock: false
+            },
+            {
+                _id: 't104',
+                name: 'Remote Control Car',
+                price: 350,
+                labels: ['On wheels', 'Battery Powered', 'Plastic'],
+                createdAt: Date.now(),
+                inStock: true
+            },
+            {
+                _id: 't105',
+                name: 'Rubik’s Cube',
+                price: 50,
+                labels: ['Puzzle'],
+                createdAt: Date.now(),
+                inStock: true
+            },
+            {
+                _id: 't106',
+                name: 'Action Figure',
+                price: 180,
+                labels: ['Doll', 'Plastic'],
+                createdAt: Date.now(),
+                inStock: false
+            },
+            {
+                _id: 't107',
+                name: 'Play Kitchen Set',
+                price: 400,
+                labels: ['Plastic', 'Building'],
+                createdAt: Date.now(),
+                inStock: true
+            },
+            {
+                _id: 't108',
+                name: 'Stuffed Bunny',
+                price: 150,
+                labels: ['Stuffed', 'Baby'],
+                createdAt: Date.now(),
+                inStock: true
+            },
+            {
+                _id: 't109',
+                name: 'Building Blocks',
+                price: 220,
+                labels: ['Building', 'Plastic'],
+                createdAt: Date.now(),
+                inStock: true
+            },
+            {
+                _id: 't110',
+                name: 'Box Game',
+                price: 80,
+                labels: ['Box game'],
+                createdAt: Date.now(),
+                inStock: true
+            },
+            {
+                _id: 't111',
+                name: 'Paint Set',
+                price: 60,
+                labels: ['Art'],
+                createdAt: Date.now(),
+                inStock: true
+            },
+            {
+                _id: 't112',
+                name: 'Outdoor Ball',
+                price: 90,
+                labels: ['Outdoor', 'On wheels'],
+                createdAt: Date.now(),
+                inStock: true
             }
         ]
     }

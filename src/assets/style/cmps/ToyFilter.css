@@ -1,4 +1,4 @@
-.toy-filter {
+.toy-filter-sort {
     background-color: var(--clr2bg);
     padding: 1em;
 }
@@ -35,4 +35,15 @@
     border: 1px solid #ccc;
     font-size: 14px;
     min-width: 150px;
+}
+
+.toy-sort select {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.toy-sort input {
+    font-size: 14px;
 }
