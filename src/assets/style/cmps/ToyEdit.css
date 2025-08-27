@@ -1,14 +1,62 @@
 .toy-edit {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightpink;
+    margin-top: 50px;
+}
+
+.toy-edit h2 {
     text-align: center;
 }
 
 .toy-edit form {
     display: flex;
     flex-direction: column;
+    gap: 1.5em;
     align-items: center;
+}
 
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
 
-    input {
-        margin-bottom: 2em;
-    }
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+
+}
+
+.form-group input {
+    padding: 0.4em;
+    font-size: 0.9em;
+    border-radius: 3px;
+    border: 1px solid lightpink;
+}
+
+/* Align the select with the other inputs */
+.form-group select {
+    width: 180px;
+    padding: 0.5em;
+    font-size: 0.9em;
+    border: 1px solid lightpink;
+    border-radius: 5px;
+}
+
+.form-group input[type="checkbox"] {
+    margin-top: 1em;
+}
+
+.form-group.stock {
+    margin-right: 100px;
+}
+
+/*buttons*/
+.toy-edit-btns {
+    display: flex;
+    gap: 2em;
+    align-items: center;
 }
