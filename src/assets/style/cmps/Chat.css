@@ -1,0 +1,15 @@
+.message-from.user {
+    background-color: rgb(206, 247, 206);
+    margin-left: 20%;
+}
+
+.message-from.other {
+    background-color: rgb(242, 245, 248);
+    margin-right: 20%;
+}
+
+.chat-input-form input {
+    padding: 8px;
+    border: 1px solid lightpink;
+    border-radius: 5px;
+}
