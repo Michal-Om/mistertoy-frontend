@@ -1,0 +1,60 @@
+.toy-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    background: #fcf8f8;
+    padding: 20px;
+    margin-top: 20px;
+    max-width: 400px;
+}
+
+.toy-labels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8em;
+}
+
+.toy-label {
+    background-color: var(--clr1);
+    padding: 5px 7px;
+    font-size: 0.85em;
+    color: #333;
+    border-radius: 12px;
+}
+
+.toy-actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5em;
+}
+
+.toy-actions a {
+    color: var(--clr2);
+    font-weight: 500;
+    padding: 4px 8px;
+    border: 1px solid var(--clr2);
+    border-radius: 6px;
+}
+
+.toy-actions a:hover {
+    background-color: var(--clr2);
+    color: white;
+}
+
+.toy-added {
+    font-size: 0.85em;
+    margin: 0;
+}
+
+.toy-details-stock {
+    margin: 0;
+}
+
+.open-chat-btn {
+    position: fixed;
+    bottom: 130px;
+    right: 8px;
+    border-radius: 20px 20px 0 30px;
+    padding: 25px;
+
+}
