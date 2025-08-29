@@ -8,7 +8,7 @@ import { ToySort } from '../cmps/ToySort.jsx'
 import { ToyList } from '../cmps/ToyList.jsx'
 import { toyService } from '../services/toy.service-local.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
-import { loadToys, removeToy, saveToy, setFilterBy, setSortBy } from '../store/actions/toy.actions.js'
+import { loadToys, removeToy, setFilterBy, setSortBy } from '../store/actions/toy.actions.js'
 
 
 export function ToyIndex() {
@@ -44,40 +44,15 @@ export function ToyIndex() {
                 showSuccessMsg('Toy removed')
             })
             .catch(err => {
+                console.log('err:', err)
                 showErrorMsg('Cannot remove toy')
-            })
-    }
-
-    function onAddToy() {
-        const toyToSave = toyService.getRandomToy()
-        saveToy(toyToSave)
-            .then((savedToy) => {
-                showSuccessMsg(`Toy added (id: ${savedToy._id})`)
-            })
-            .catch(err => {
-                showErrorMsg('Cannot add toy')
-            })
-    }
-
-    function onEditToy(toy) {
-        const price = +prompt('New price?')
-        const toyToSave = { ...toy, price }
-
-
-        saveToy(toyToSave)
-            .then((savedToy) => {
-                showSuccessMsg(`Toy updated to price: $${savedToy.price}`)
-            })
-            .catch(err => {
-                showErrorMsg('Cannot update toy')
             })
     }
 
     return (
         <div>
             <main>
-                <Link to="/toy/edit">Add Toy</Link>
-                <button className='add-btn' onClick={onAddToy}>Add Random Toy</button>
+                <Link to="/toy/edit" className="add-toy-link">Add Toy</Link>
                 <section className="toy-filter-sort container">
                     <ToyFilter
                         filterBy={filterBy}
@@ -90,7 +65,6 @@ export function ToyIndex() {
                     ? <ToyList
                         toys={toys}
                         onRemoveToy={onRemoveToy}
-                        onEditToy={onEditToy}
                     />
                     : <div>Loading...</div>
                 }
