@@ -63,9 +63,6 @@ export function Chat() {
             </form>
 
         </div>
-
-
-
     )
 }
 

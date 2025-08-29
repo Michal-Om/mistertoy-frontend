@@ -28,9 +28,9 @@ export function ToyDetails() {
     return (
         <>
             <section className="toy-details">
-                <h1>Toy name : {toy.name}</h1>
+                <h1>{toy.name}</h1>
                 <img src={toy.imgUrl} alt={toy.name} />
-                <h5>Price: ${toy.price}</h5>
+                <h2>Price: ${toy.price}</h2>
                 <p>{toy.inStock ? 'In stock' : 'Out of stock'}</p>
                 <Link to={`/toy/edit/${toy._id}`}>Edit</Link> &nbsp;
                 <Link to={`/toy`}>Back</Link>
@@ -43,17 +43,17 @@ export function ToyDetails() {
                     ))}
                 </div>
                 <p>Added on: {new Date(toy.createdAt).toLocaleDateString()}</p>
-
             </section>
-            <button className="open-popup-btn" onClick={() => setIsChatOpen(true)}>Chat</button>
-
             <PopUp
-                cmp={'chat'}
+                header={<h2>Chat About {toy.name}</h2>}
+                footer={<h4>{'\u00A9'} 2025 The Toy Company</h4>}
                 onClose={() => setIsChatOpen(false)}
                 isOpen={isChatOpen}
             >
                 <Chat />
             </PopUp>
+            {!isChatOpen && <button className="open-popup-btn" onClick={() => setIsChatOpen(true)}>Chat</button>}
+
         </>
 
     )

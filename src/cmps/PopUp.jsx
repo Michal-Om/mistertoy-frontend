@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-export function PopUp({ onClose, isOpen = false, children, cmp }) {
+export function PopUp({ onClose, isOpen = false, children, header, footer }) {
 
     const [isPopUpOpen, setIsPopUpOpen] = useState(isOpen)
 
@@ -7,9 +7,22 @@ export function PopUp({ onClose, isOpen = false, children, cmp }) {
         setIsPopUpOpen(isOpen)
     }, [isOpen])
 
+    useEffect(() => {
+        if (!isOpen) return
+        window.addEventListener('keydown', handleKeyDown)
+        return () => window.removeEventListener('keydown', handleKeyDown)
+    }, [isOpen])
+
     function onClosePopUp() {
         setIsPopUpOpen(false)
         onClose()
+    }
+
+    function handleKeyDown(event) {
+        if (event.key === 'Escape') {
+            console.log('Escape clicked!')
+            onClosePopUp()
+        }
     }
 
     if (!isPopUpOpen) return null
@@ -18,14 +31,11 @@ export function PopUp({ onClose, isOpen = false, children, cmp }) {
         <div className="popup-backdrop" onClick={onClosePopUp}>
             <div className="popup-container" onClick={ev => ev.stopPropagation()}>
                 <button onClick={onClosePopUp} className="close-btn">X</button>
-                <header>
-                    {cmp === 'chat' ? <h2>Chat with our team</h2> : <h2>General cmp</h2>}
-
-                </header>
+                <header>{header}</header>
                 <main className="popup-main">
                     {children}
                 </main>
-                <footer>{'\u00A9'} 2025 The Toy Company</footer>
+                <footer>{footer}</footer>
             </div>
         </div>
 
