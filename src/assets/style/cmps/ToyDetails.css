@@ -15,7 +15,7 @@
 }
 
 .toy-label {
-    background-color: var(--clr1);
+    background-color: var(--clr2);
     padding: 5px 7px;
     font-size: 0.85em;
     color: #333;
@@ -29,10 +29,10 @@
 }
 
 .toy-actions a {
-    color: var(--clr2);
+    color: var(--clr1bg);
     font-weight: 500;
     padding: 4px 8px;
-    border: 1px solid var(--clr2);
+    border: 1px solid var(--clr1bg);
     border-radius: 6px;
 }
 
