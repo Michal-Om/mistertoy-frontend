@@ -25,6 +25,15 @@ export function UserMsg() {
     }
 
     if (!msg) return <span></span>
+
+    //test user msg for design:
+    // if (!msg) return (
+    //     <section className="user-msg success">
+    //         <button onClick={() => setMsg(null)}>x</button>
+    //         Test message
+    //     </section>
+    // )
+
     return (
         <section className={`user-msg ${msg.type}`}>
             <button onClick={closeMsg}>x</button>

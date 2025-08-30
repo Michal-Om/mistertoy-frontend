@@ -1,5 +1,4 @@
 
-import { UserMsg } from './UserMsg.jsx'
 import { LoginSignup } from './LoginSignup.jsx'
 import { userService } from '../services/user.service-local.js'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
@@ -12,7 +11,6 @@ import { NavLink } from 'react-router-dom'
 export function AppHeader() {
     const dispatch = useDispatch()
     const user = useSelector(storeState => storeState.userModule.loggedinUser)
-    // console.log('user:', user)
 
     function onLogout() {
         logout()
@@ -20,6 +18,7 @@ export function AppHeader() {
                 showSuccessMsg('logout successfully')
             })
             .catch((err) => {
+                console.log('err:', err)
                 showErrorMsg('OOPs try again')
             })
     }
@@ -45,7 +44,7 @@ export function AppHeader() {
                     <LoginSignup />
                 </section>
             )}
-            <UserMsg />
+
         </header>
     )
 }

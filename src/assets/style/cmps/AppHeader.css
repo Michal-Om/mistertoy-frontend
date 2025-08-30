@@ -18,3 +18,7 @@
 .app-nav a {
     margin-left: 1rem;
 }
+
+.app-nav a:hover {
+    color: var(--gray3);
+}

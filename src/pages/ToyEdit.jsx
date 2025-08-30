@@ -129,7 +129,7 @@ export function ToyEdit() {
                         </div>
                     )}
                     <div className="toy-edit-btns">
-                        <button disabled={!toyToEdit.name}>{toyToEdit._id ? 'Save' : 'Add'}</button>
+                        <button>{toyToEdit._id ? 'Save' : 'Add'}</button>
                         <Link to="/toy">Cancel</Link>
                     </div>
                 </form>

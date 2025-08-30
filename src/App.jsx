@@ -10,6 +10,7 @@ import { ToyIndex } from './pages/ToyIndex.jsx'
 import { ToyEdit } from './pages/ToyEdit.jsx'
 import { ToyDetails } from "./pages/ToyDetails.jsx"
 import { UserDetails } from './pages/UserDetails.jsx'
+import { UserMsg } from "./cmps/UserMsg.jsx"
 import { store } from "./store/store.js"
 
 export function App() {
@@ -30,6 +31,7 @@ export function App() {
             </Routes>
           </main>
           <AppFooter />
+          <UserMsg />
         </section>
       </Router>
     </Provider>
