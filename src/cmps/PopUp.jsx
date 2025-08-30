@@ -9,8 +9,8 @@ export function PopUp({ onClose, isOpen = false, children, header, footer }) {
 
     useEffect(() => {
         if (!isOpen) return
-        window.addEventListener('keydown', handleKeyDown)
-        return () => window.removeEventListener('keydown', handleKeyDown)
+        document.addEventListener('keydown', handleKeyDown)
+        return () => document.removeEventListener('keydown', handleKeyDown)
     }, [isOpen])
 
     function onClosePopUp() {
